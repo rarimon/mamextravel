@@ -17,8 +17,10 @@ class UserController extends Controller
     {
 
         $user_info = User::latest()->get();
+        $user_total=User::count();
         return view('admin.user.user_list', [
             'user_info' => $user_info,
+            'user_total' => $user_total,
         ]);
     }
 

@@ -86,10 +86,25 @@
         </div><!-- menu-item -->
       </a><!-- sl-menu-link -->
       <ul class="sl-menu-sub nav flex-column">
-        <li class="nav-item"><a href="{{url('/category')}}" class="nav-link @yield('l_user')">Main Category</a></li>
-        <li class="nav-item"><a href="{{url('/subcategory')}}" class="nav-link @yield('ad_user')">Subcategory</a></li>
+        <li class="nav-item"><a href="{{url('/category')}}" class="nav-link @yield('l_category')"> Category List</a></li>
+        <li class="nav-item"><a href="{{url('/add/category')}}" class="nav-link @yield('ad_category')">Add Category</a></li>
 
       </ul>
+
+
+      <a href="#" class="sl-menu-link  @yield('active_h')">
+        <div class="sl-menu-item">
+          <i class="fa fa-bank"></i>
+          <span class="menu-item-label">Manage Hotel</span>
+          <i class="menu-item-arrow fa fa-angle-down"></i>
+        </div><!-- menu-item -->
+      </a><!-- sl-menu-link -->
+      <ul class="sl-menu-sub nav flex-column">
+        <li class="nav-item"><a href="{{url('/hotel')}}" class="nav-link @yield('l_hotel')">All Hotel List</a></li>
+        <li class="nav-item"><a href="{{url('/insert/hotel')}}" class="nav-link @yield('ad_hotel')">Add Hotel</a></li>
+
+      </ul>
+
 
 
 
@@ -112,11 +127,11 @@
         <div class="dropdown">
           <a href="" class="nav-link nav-link-profile" data-toggle="dropdown">
             <span class="logged-name">{{Auth::user()->name}}</span>
-            <img src="{{asset('dashboard_asset')}}/img/img3.jpg" class="wd-32 rounded-circle" alt="">
+            <img src="{{asset('/upload/user')}}/{{Auth::user()->profile_photo}}" class="wd-32 rounded-circle" alt="">
           </a>
           <div class="dropdown-menu dropdown-menu-header wd-200">
             <ul class="list-unstyled user-profile-nav">
-              <li><a href=""><i class="icon ion-ios-person-outline"></i> Edit Profile</a></li>
+              <li><a href="{{url('/edit/profile')}}"><i class="icon ion-ios-person-outline"></i> Edit Profile</a></li>
               <li><a href=""><i class="icon ion-ios-gear-outline"></i> Settings</a></li>
               <li><a href=""><i class="icon ion-ios-download-outline"></i> Downloads</a></li>
               <li><a href=""><i class="icon ion-ios-star-outline"></i> Favorites</a></li>

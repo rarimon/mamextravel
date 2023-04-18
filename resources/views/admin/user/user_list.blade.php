@@ -24,8 +24,8 @@ active
 
   <div class="sl-pagebody">
     <div class="card pd-20 pd-sm-40">
-      <h3 class="card-body-title">User Information</h3>
-      <p class="mg-b-20 mg-sm-b-30">Searching, ordering and paging goodness will be immediately added to the table, as shown in this example.</p>
+      <h2 class="card-body-title text-center">User Information</h2>
+      <p class="mg-b-20 mg-sm-b-30 " >Total User: <span class="text-success">{{$user_total}}</span></p>
 
       <div class="table-wrapper">
         <table id="datatable1" class="table display responsive nowrap">
@@ -44,7 +44,7 @@ active
             @foreach($user_info as $index=> $user)
             <tr>
               <td>{{$user->name}}</td>
-              <td>NA</td>
+              <td>{{$user->phone}}</td>
               <td>{{$user->email}}</td>
               <td>Na</td>
               <td>Na</td>
