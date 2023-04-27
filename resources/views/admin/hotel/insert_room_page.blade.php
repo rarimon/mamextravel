@@ -2,18 +2,8 @@
 
 
 @section('title')
-Insert Hotel
+Insert Room
 @endsection
-
-@section('active_h')
-active
-@endsection
-
-
-@section('ad_hotel')
-active
-@endsection
-
 
 
 
@@ -25,55 +15,34 @@ active
     <div class="sl-pagebody">
 
         <div class="card pd-20 pd-sm-40">
-            <h4 class="card-body-title text-center">Insert Hotel</h4>
+            <h4 class="card-body-title text-center">Insert Room</h4>
             <p class="mg-b-20 mg-sm-b-30"></p>
-            
-            <form action="{{url('/add/hotel')}}" method="post" enctype="multipart/form-data">
+
+            <form action="{{url('/add/room')}}" method="post" enctype="multipart/form-data">
                 @csrf
 
                 <div class="form-layout">
                     <div class="row mg-b-25">
 
                         <div class="col-lg-12">
-                            <div class="form-group mg-b-10-force">
-                                <label class="form-control-label">Select Category: <span class="tx-danger">*</span></label>
-                                <select class="form-control select2" name="category_id" data-placeholder="Choose country">
-                                    <option label="Choose Category"></option>
-                                    @foreach( $category_info as $category)
-                                    <option value="{{$category->id}}">{{$category->category_name}}</option>
-                                    @endforeach
-                                </select>
-                                @error('category_id')
+                            <div class="form-group">
+                                <label class="form-control-label">Room Type: <span class="tx-danger">*</span></label>
+                                <input class="form-control" type="text" name="room_type">
+                                @error('room_type')
+                                <span class="text-danger">{{$message}}</span>
+                                @enderror
+                            </div>
+                        </div><!-- col-4 -->
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <label class="form-control-label">Room Location: <span class="tx-danger">*</span></label>
+                                <input class="form-control" type="text" name="room_location">
+                                @error('room_location')
                                 <span class="text-danger">{{$message}}</span>
                                 @enderror
                             </div>
                         </div><!-- col-4 -->
 
-                        <div class="col-lg-12">
-                            <div class="form-group">
-                                <label class="form-control-label">Hotel Name: <span class="tx-danger">*</span></label>
-                                <input class="form-control" type="text" name="hotel_name">
-                                @error('hotel_name')
-                                <span class="text-danger">{{$message}}</span>
-                                @enderror
-                            </div>
-                        </div><!-- col-4 -->
-                        <div class="col-lg-12">
-                            <div class="form-group">
-                                <label class="form-control-label">Hotel Location: <span class="tx-danger">*</span></label>
-                                <input class="form-control" type="text" name="hotel_location">
-                                @error('hotel_location')
-                                <span class="text-danger">{{$message}}</span>
-                                @enderror
-                            </div>
-                        </div><!-- col-4 -->
-
-                        <div class="col-lg-12">
-                            <div class="form-group">
-                                <label class="form-control-label">Hotel Owner Name: </label>
-                                <input class="form-control" type="text" name="owner_name" placeholder="Optional">
-                            </div>
-                        </div><!-- col-4 -->
 
                         <div class="col-lg-12">
                             <div class="form-group">
@@ -116,19 +85,12 @@ active
                         </div><!-- col-8 -->
 
 
-                        <div class="col-lg-12">
-                            <div class="form-group mg-b-10-force">
-                                <label class="form-control-label">Hotel Location Map Link: </label>
-                                <input class="form-control" type="text" name="map_link" placeholder="Optional">
-                            </div>
-                        </div><!-- col-8 -->
-
 
                         <div class="col-lg-12">
                             <div class="form-group mg-b-10-force">
-                                <label class="form-control-label">Hotel Image: <span class="tx-danger">*</span></label>
-                                <input class="form-control" name="hotel_image" type="file">
-                                @error('hotel_image')
+                                <label class="form-control-label">Room Image: <span class="tx-danger">*</span></label>
+                                <input class="form-control" name="room_image" type="file">
+                                @error('room_image')
                                 <span class="text-danger">{{$message}}</span>
                                 @enderror
                             </div>

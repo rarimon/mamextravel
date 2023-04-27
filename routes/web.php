@@ -56,6 +56,22 @@ Route::post('/photo/update', [ProfileController::class, 'photo_update']);
 Route::get('/hotel', [HotelController::class, 'hotel_page']);
 Route::get('/insert/hotel', [HotelController::class, 'add_hotel_page']);
 Route::post('/add/hotel', [HotelController::class, 'hotel_add']);
+Route::get('/hotel/delete/{hotel_id}', [HotelController::class, 'hotel_delete']);
+Route::get('/edit/hotel/{hotel_id}', [HotelController::class, 'hotel_edit_page']);
+Route::post('/update/hotel', [HotelController::class, 'hotel_update']);
+Route::get('/hotel/facilities/{hotel_id}', [HotelController::class, 'hotel_faciliti_page']);
+Route::post('/insert/digital_ficiliti', [HotelController::class, 'insert_digital_faciliti']);
+Route::get('/delete/digital_ficiliti/{hotel_id}', [HotelController::class, 'delete_digital_ficiliti']);
+Route::post('/insert/other_ficiliti', [HotelController::class, 'insert_other_faciliti']);
+Route::get('/delete/other_ficiliti/{hotel_id}', [HotelController::class, 'delete_other_ficiliti']);
+Route::post('/insert/choose_us', [HotelController::class, 'insert_choose_us']);
+Route::get('/delete/choose_us/{hotel_id}', [HotelController::class, 'delete_choose_us']);
+//Rooms
+Route::get('/rooms/{hotel_id}', [HotelController::class, 'room_page']);
+Route::post('/add/room', [HotelController::class, 'room_add']);
+
+
+
 
 
 

@@ -5,11 +5,11 @@
 Insert User
 @endsection
 
-@section('active_c')
+@section('active_h')
 active
 @endsection
 
-@section('l_category')
+@section('l_hotel')
 active
 @endsection
 
@@ -21,44 +21,52 @@ active
         <div class="row row-sm mg-t-20">
             <div class="col-xl-12">
                 <div class="card pd-20 pd-sm-40">
-                    <h2 class="card-body-title text-center">Category Information</h2>
-                    <p class="mg-b-20 mg-sm-b-30 ">Total Category: <span class="text-success">{{$category_total}}</span></p>
+                    <h2 class="card-body-title text-center">Hotel Information</h2>
+                    <p class="mg-b-20 mg-sm-b-30 ">Total Hotel: <span class="text-success">{{$total_hotel}}</span></p>
 
                     <div class="table-wrapper">
                         <table id="datatable1" class="table display responsive nowrap">
                             <thead>
                                 <tr>
-                                    <th class="wd-15p">Category Name</th>
-                                    <th class="wd-15p">Category Icon</th>
-                                    <th class="wd-15p">Added By</th>
-                                    <th class="wd-20p">Status</th>
-                                    <th class="wd-15p">Created Time</th>
+                                    <th class="wd-15p">Hotel Image</th>
+                                    <th class="wd-15p">Hotel Name</th>
+                                    <th class="wd-15p">Hotel Location</th>
+                                    <th class="wd-20p">Description</th>
+                                    <th class="wd-20p">Price</th>
+                                    <th class="wd-15p">Discount</th>
                                     <th class="wd-10p">Action</th>
 
                                 </tr>
                             </thead>
                             <tbody>
 
-                                @foreach($category_info as $index=> $category)
+                                @foreach($hotel_info as $index=> $hotel)
                                 <tr>
 
-                                    <td>{{$category->category_name}}</td>
-                                    <td>
-                                        @if($category->icon_name)
-                                        <i class="icon {{$category->icon_name}}"></i>
+                                    <td class="text-center">
+                                        @if($hotel->hotel_image)
+                                        <img width="150px" src="{{asset('upload/hotel_image')}}/{{$hotel->hotel_image}}" alt="">
+                                        @else
+                                        <p>NA</p>
+                                        @endif
+
                                     </td>
-                                    @else
-                                    <P>NA</P>
-                                    @endif
+                                    <td>{{$hotel->hotel_name}}</td>
+                                    <td>{{$hotel->hotel_location}}</td>
+                                    <td>{{$hotel->description}}</td>
+                                    <td>{{$hotel->price}}</td>
+                                    <td>{{$hotel->discount}}%</td>
 
 
-                                    <td>{{App\Models\User::find($category->added_by)->name}}</td>
-                                    <td>Na</td>
 
-                                    <td>{{$category->created_at->diffForHumans()}}</td>
+
+
+
                                     <td>
-                                        <a href="{{url('/category/edit')}}/{{$category->id}}" class="btn btn-success">Edit</a>
-                                        <a href="{{url('/category/delete')}}/{{$category->id}}" class="btn btn-danger">Delete</a>
+                                        <a href="{{url('/edit/hotel')}}/{{$hotel->id}}" class="btn btn-primary">Edit</a>
+                                        <a href="{{url('/hotel/facilities')}}/{{$hotel->id}}" class="btn btn-dark">Facility</a>
+                                        <a href="{{url('/rooms')}}/{{$hotel->id}}" class="btn btn-success">Room</a>
+                                        <a href="{{url('/hotel/delete')}}/{{$hotel->id}}" class="btn btn-danger">Delete</a>
                                     </td>
                                 </tr>
                                 @endforeach
@@ -68,6 +76,7 @@ active
                             </tbody>
                         </table>
                     </div><!-- table-wrapper -->
+                    
                 </div><!-- card -->
             </div><!-- col-6 -->
         </div><!-- row -->
