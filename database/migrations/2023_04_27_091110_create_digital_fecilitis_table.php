@@ -16,6 +16,7 @@ class CreateDigitalFecilitisTable extends Migration
         Schema::create('digital_fecilitis', function (Blueprint $table) {
             $table->id();
             $table->integer('hotel_id');
+            $table->integer('room_id');
             $table->integer('added_by');
             $table->string('faciliti_name');
             $table->string('icon_name');

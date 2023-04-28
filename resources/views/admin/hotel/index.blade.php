@@ -45,7 +45,7 @@ active
 
                                     <td class="text-center">
                                         @if($hotel->hotel_image)
-                                        <img width="150px" src="{{asset('upload/hotel_image')}}/{{$hotel->hotel_image}}" alt="">
+                                        <img width="100px" src="{{asset('upload/hotel_image')}}/{{$hotel->hotel_image}}" alt="">
                                         @else
                                         <p>NA</p>
                                         @endif
@@ -53,18 +53,13 @@ active
                                     </td>
                                     <td>{{$hotel->hotel_name}}</td>
                                     <td>{{$hotel->hotel_location}}</td>
-                                    <td>{{$hotel->description}}</td>
+                                    <td> {{ Str::limit($hotel->description, 10) }}</td>
                                     <td>{{$hotel->price}}</td>
                                     <td>{{$hotel->discount}}%</td>
 
-
-
-
-
-
                                     <td>
                                         <a href="{{url('/edit/hotel')}}/{{$hotel->id}}" class="btn btn-primary">Edit</a>
-                                        <a href="{{url('/hotel/facilities')}}/{{$hotel->id}}" class="btn btn-dark">Facility</a>
+                                        <a href="{{url('/hotel/facilities')}}/{{$hotel->id}}" class="btn btn-dark">Faciliti</a>
                                         <a href="{{url('/rooms')}}/{{$hotel->id}}" class="btn btn-success">Room</a>
                                         <a href="{{url('/hotel/delete')}}/{{$hotel->id}}" class="btn btn-danger">Delete</a>
                                     </td>
@@ -76,7 +71,7 @@ active
                             </tbody>
                         </table>
                     </div><!-- table-wrapper -->
-                    
+
                 </div><!-- card -->
             </div><!-- col-6 -->
         </div><!-- row -->

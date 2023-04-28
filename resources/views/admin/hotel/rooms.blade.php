@@ -138,15 +138,15 @@ Room
 
 
 
-                    <p class="mg-b-20 mg-sm-b-30 ">Total Room: <span class="text-success">{{--{{$total_hotel}}--}}</span></p>
+                    <p class="mg-b-20 mg-sm-b-30 "><span class="text-success"></span></p>
 
                     <div class="table-wrapper">
                         <table id="datatable1" class="table display responsive nowrap">
                             <thead>
                                 <tr>
-                                    <th class="wd-15p">Hotel Image</th>
-                                    <th class="wd-15p">Hotel Name</th>
-                                    <th class="wd-15p">Hotel Location</th>
+                                    <th class="wd-15p">Room Image</th>
+                                    <th class="wd-15p">Room Name</th>
+                                    <th class="wd-15p">Room Location</th>
                                     <th class="wd-20p">Description</th>
                                     <th class="wd-20p">Price</th>
                                     <th class="wd-15p">Discount</th>
@@ -156,36 +156,35 @@ Room
                             </thead>
                             <tbody>
 
-                                {{-- @foreach($hotel_info as $index=> $hotel)
+                                @foreach($room_info as $index=> $room)
                                 <tr>
 
                                     <td class="text-center">
-                                        @if($hotel->hotel_image)
-                                        <img width="150px" src="{{asset('upload/hotel_image')}}/{{$hotel->hotel_image}}" alt="">
-                                @else
-                                <p>NA</p>
-                                @endif
+                                        @if($room->room_image)
+                                        <img width="150px" src="{{asset('upload/hotel_image/room')}}/{{$room->room_image}}" alt="">
+                                        @else
+                                        <p>NA</p>
+                                        @endif
 
-                                </td>
-                                <td>{{$hotel->hotel_name}}</td>
-                                <td>{{$hotel->hotel_location}}</td>
-                                <td>{{$hotel->description}}</td>
-                                <td>{{$hotel->price}}</td>
-                                <td>{{$hotel->discount}}%</td>
-
-
+                                    </td>
+                                    <td>{{$room->room_type}}</td>
+                                    <td>{{$room->room_location}}</td>
+                                    <td>{{ Str::limit($room->description, 10) }}</td>
+                                    <td>{{$room->price}}</td>
+                                    <td>{{$room->discount}}%</td>
 
 
 
 
-                                <td>
-                                    <a href="{{url('/edit/hotel')}}/{{$hotel->id}}" class="btn btn-primary">Edit</a>
-                                    <a href="{{url('/hotel/facilities')}}/{{$hotel->id}}" class="btn btn-dark">Facility</a>
-                                    <a href="{{url('/rooms')}}/{{$hotel->id}}" class="btn btn-success">Room</a>
-                                    <a href="{{url('/hotel/delete')}}/{{$hotel->id}}" class="btn btn-danger">Delete</a>
-                                </td>
+
+
+                                    <td>
+                                        <a href="{{url('/edit/room')}}/{{$room->id}}" class="btn btn-primary">Edit</a>
+                                        <a href="{{url('/room/facilities')}}/{{$room->id}}" class="btn btn-dark">Facility</a>
+                                        <a href="{{url('/delete/room')}}/{{$room->id}}" class="btn btn-danger">Delete</a>
+                                    </td>
                                 </tr>
-                                @endforeach--}}
+                                @endforeach
 
 
 

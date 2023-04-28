@@ -25,12 +25,13 @@ active
   <div class="sl-pagebody">
     <div class="card pd-20 pd-sm-40">
       <h2 class="card-body-title text-center">User Information</h2>
-      <p class="mg-b-20 mg-sm-b-30 " >Total User: <span class="text-success">{{$user_total}}</span></p>
+      <p class="mg-b-20 mg-sm-b-30 ">Total User: <span class="text-success">{{$user_total}}</span></p>
 
       <div class="table-wrapper">
         <table id="datatable1" class="table display responsive nowrap">
           <thead>
             <tr>
+              <th class="wd-15p">Image</th>
               <th class="wd-15p">Name</th>
               <th class="wd-15p">Phone</th>
               <th class="wd-20p">Email</th>
@@ -43,6 +44,13 @@ active
           <tbody>
             @foreach($user_info as $index=> $user)
             <tr>
+              <td>
+                @if(Auth::user()->profile_photo)
+                <img width="60px" src="{{asset('/upload/user')}}/{{$user->profile_photo}}" alt="image">
+                @else
+                <img width="60px" src="{{asset('/upload/user')}}/default.jpg" alt="image">
+                @endif
+              </td>
               <td>{{$user->name}}</td>
               <td>{{$user->phone}}</td>
               <td>{{$user->email}}</td>

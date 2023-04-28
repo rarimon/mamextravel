@@ -23,6 +23,7 @@ class CreateHotelsTable extends Migration
             $table->longText('description');
             $table->integer('price');
             $table->integer('discount');
+            $table->integer('discount_price');
             $table->string('description_title');
             $table->string('map_link');
             $table->string('hotel_image');

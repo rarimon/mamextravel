@@ -8,6 +8,7 @@ use App\Models\DigitalFeciliti;
 use App\Models\OtherFaciliti;
 use App\Models\HotelChoose;
 use App\Models\Room;
+use App\Models\RoomChoose;
 
 
 use App\Models\Hotel;
@@ -59,7 +60,7 @@ class HotelController extends Controller
             'hotel_image' => 'required',
         ]);
 
-
+        $discount_p = ($request->price / 100) * $request->discount;
 
         $hotel_id =    Hotel::insertGetId([
             'category_id' => $request->category_id,
@@ -70,6 +71,7 @@ class HotelController extends Controller
             'description' => $request->description,
             'price' => $request->price,
             'discount' => $request->discount,
+            'discount_price' => $request->price - $discount_p,
             'description_title' => $request->dsp_title,
             'map_link' => $request->map_link,
             'created_at' => Carbon::now(),
@@ -125,7 +127,7 @@ class HotelController extends Controller
             'dsp_title' => 'required',
         ]);
 
-
+        $discount_p = ($request->price / 100) * $request->discount;
         Hotel::find($request->hotel_id)->update([
             'category_id' => $request->category_id,
             'hotel_name' => $request->hotel_name,
@@ -134,6 +136,7 @@ class HotelController extends Controller
             'description' => $request->description,
             'price' => $request->price,
             'discount' => $request->discount,
+            'discount_price' => $request->price - $discount_p,
             'description_title' => $request->dsp_title,
             'map_link' => $request->map_link,
             'updated_at' => Carbon::now(),
@@ -257,9 +260,11 @@ class HotelController extends Controller
 
         $hotel_name = Hotel::find($hotel_id)->hotel_name;
         $hotel_id = $hotel_id;
+        $room_info = Room::where('hotel_id', $hotel_id)->get();
         return view('admin.hotel.rooms', [
             'hotel_name' => $hotel_name,
             'hotel_id' => $hotel_id,
+            'room_info' => $room_info,
         ]);
     }
 
@@ -308,5 +313,161 @@ class HotelController extends Controller
 
 
         return back()->with('success', 'Room Insert Successfully !');
+    }
+
+    //room_edit_page
+    public function room_edit_page($room_id)
+    {
+
+        $room_info = Room::find($room_id);
+        $room_id = $room_id;
+
+        return view('admin.hotel.edit_room_page', [
+            'room_info' => $room_info,
+            'room_id' => $room_id,
+        ]);
+    }
+
+    //room_update
+    public function room_update(Request $request)
+    {
+        $request->validate([
+            'room_type' => 'required',
+            'room_location' => 'required',
+            'description' => 'required',
+            'price' => 'required',
+            'dsp_title' => 'required',
+        ]);
+
+
+
+        Room::find($request->room_id)->update([
+            'room_type' => $request->room_type,
+            'room_location' => $request->room_location,
+            'description' => $request->description,
+            'price' => $request->price,
+            'discount' => $request->discount,
+            'description_title' => $request->dsp_title,
+            'updated_at' => Carbon::now(),
+        ]);
+
+        $room_id = $request->room_id;
+
+        $new_room_image = $request->room_image;
+        $extention = $new_room_image->getClientOriginalExtension();
+        $new_room_image_name = $room_id . '.' . $extention;
+
+
+
+        Image::make($new_room_image)->save(base_path('/public/upload/hotel_image/room/' . $new_room_image_name));
+        Room::find($room_id)->update([
+            'room_image' => $new_room_image_name,
+        ]);
+
+
+
+
+
+        return back()->with('success', 'Room Insert Successfully !');
+    }
+    //room_faciliti_page;
+    public function room_faciliti_page($room_id)
+    {
+        $room_id = $room_id;
+        $room_name = Room::find($room_id)->room_type;
+        $room_digital_faciliti_info = DigitalFeciliti::where('room_id', $room_id)->get();
+
+        $room_other_faciliti_info = OtherFaciliti::where('room_id', $room_id)->get();
+
+        $room_choose_info = RoomChoose::where('room_id', $room_id)->get();
+
+        return view('admin.hotel.room_faciliti', [
+            'room_name' => $room_name,
+            'room_id' => $room_id,
+            'room_digital_faciliti_info' => $room_digital_faciliti_info,
+            'room_other_faciliti_info' => $room_other_faciliti_info,
+            'room_choose_info' => $room_choose_info,
+        ]);
+    }
+
+    //insert_digital_faciliti
+    public function room_digital_faciliti(Request $request)
+    {
+        $request->validate([
+            'faciliti_name' => 'required',
+        ]);
+
+        DigitalFeciliti::insert([
+            'room_id' => $request->room_id,
+            'added_by' => Auth::id(),
+            'faciliti_name' => $request->faciliti_name,
+            'icon_name' => $request->icon_name,
+            'created_at' => Carbon::now(),
+        ]);
+        return back()->with('success', 'Data Insert Successfull');
+    }
+
+    //delete_room_digital_ficiliti
+    public function delete_room_digital_ficiliti($room_id)
+    {
+        DigitalFeciliti::find($room_id)->delete();
+        return back()->with('success', 'Delete Successfull');
+    }
+
+
+    //insert_room_other_ficiliti
+    public function room_other_ficiliti(Request $request)
+    {
+        $request->validate([
+            'faciliti_name' => 'required',
+        ]);
+
+        OtherFaciliti::insert([
+            'room_id' => $request->room_id,
+            'added_by' => Auth::id(),
+            'faciliti_name' => $request->faciliti_name,
+            'created_at' => Carbon::now(),
+        ]);
+        return back()->with('success', 'Data Insert Successfull');
+    }
+
+    //delete_room_other_ficiliti
+    public function delete_room_other_ficiliti($room_id)
+    {
+        OtherFaciliti::find($room_id)->delete();
+        return back()->with('success', 'Delete Successfull');
+    }
+
+
+
+    //insert_room_choose_us
+    public function insert_room_choose_us(Request $request)
+    {
+        $request->validate([
+            'name' => 'required',
+        ]);
+
+        RoomChoose::insert([
+            'room_id' => $request->room_id,
+            'added_by' => Auth::id(),
+            'name' => $request->name,
+            'created_at' => Carbon::now(),
+        ]);
+        return back()->with('success', 'Data Insert Successfull');
+    }
+
+
+    // //delete_choose_us
+    public function delete_room_choose_us($room_id)
+    {
+        RoomChoose::find($room_id)->delete();
+        return back()->with('success', 'Delete Successfull');
+    }
+
+    //delete room
+    public function room_delete($room_id)
+    {
+        Room::find($room_id)->delete();
+        return back()->with('success', 'Delete Successfull');
     }
 }

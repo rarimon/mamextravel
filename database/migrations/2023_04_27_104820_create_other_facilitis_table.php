@@ -16,6 +16,7 @@ class CreateOtherFacilitisTable extends Migration
         Schema::create('other_facilitis', function (Blueprint $table) {
             $table->id();
             $table->integer('hotel_id');
+            $table->integer('room_id');
             $table->integer('added_by');
             $table->string('faciliti_name');
             $table->timestamps();

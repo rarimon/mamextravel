@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateHotelChoosesTable extends Migration
+class CreateLogosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateHotelChoosesTable extends Migration
      */
     public function up()
     {
-        Schema::create('hotel_chooses', function (Blueprint $table) {
+        Schema::create('logos', function (Blueprint $table) {
             $table->id();
-            $table->integer('hotel_id');
-            $table->integer('room_id');
             $table->integer('added_by');
-            $table->string('name');
+            $table->string('logo_name');
+            $table->string('logo_image');
+            $table->integer('status');
             $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ class CreateHotelChoosesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('hotel_chooses');
+        Schema::dropIfExists('logos');
     }
 }
